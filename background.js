@@ -1,6 +1,8 @@
 // Keep track of blocked sites in memory
 let blockedSites = new Set();
 
+console.log("Background script running.");
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === 'startTimer') {
         console.log("Starting the timer for:", message.duration);
