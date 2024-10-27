@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "App Locker",
+  "version": "1.0",
+  "description": "Locks an app after an amount of time.",
+  "permissions": [
+      "storage",
+      "alarms",
+      "tabs",
+      "declarativeNetRequest",
+      "activeTab"
+  ],
+  "host_permissions": [
+      "<all_urls>"
+  ],
+  "background": {
+      "service_worker": "background.js"
+  },
+  "action": {
+      "default_popup": "popup.html"
+  },
+  "icons": {
+      "16": "lock.png",
+      "48": "lock.png",
+      "128": "lock.png"
+  },
+  "web_accessible_resources": [{
+      "resources": ["locked.html"],
+      "matches": ["<all_urls>"]
+  }],
+  "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": ["contentscript.js"]
+  }]
+}
