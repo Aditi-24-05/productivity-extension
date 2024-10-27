@@ -1,35 +1,32 @@
 {
   "manifest_version": 3,
-  "name": "App Locker",
+  "name": "Privacy Enhancer",
   "version": "1.0",
-  "description": "Locks an app after an amount of time.",
+  "description": "Enhance privacy by blocking ads, managing cookies, blocking scripts, and protecting against fingerprinting.",
   "permissions": [
-      "storage",
-      "alarms",
-      "tabs",
-      "declarativeNetRequest",
-      "activeTab"
-  ],
-  "host_permissions": [
-      "<all_urls>"
+    "declarativeNetRequest",
+    "cookies"
   ],
   "background": {
-      "service_worker": "background.js"
+    "service_worker": "scripts/background.js"
   },
+  "host_permissions": [
+    "*://*/*"
+  ],
   "action": {
-      "default_popup": "popup.html"
-  },
-  "icons": {
-      "16": "lock.png",
-      "48": "lock.png",
-      "128": "lock.png"
-  },
-  "web_accessible_resources": [{
-      "resources": ["locked.html"],
-      "matches": ["<all_urls>"]
-  }],
-  "content_scripts": [{
-      "matches": ["<all_urls>"],
-      "js": ["contentscript.js"]
-  }]
+  "default_popup": "popup.html",
+  "default_icon": {
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+},
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
 }

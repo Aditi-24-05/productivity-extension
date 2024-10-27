@@ -1,18 +1,30 @@
-document.getElementById('startTimer').addEventListener('click', () => {
-    const timeInput = document.getElementById('time').value;
-    const timeInMinutes = parseInt(timeInput);
+document.getElementById("toggleAdblock").addEventListener("click", function () {
+  chrome.runtime.sendMessage({ action: "toggleAdblock" }, function (response) {
+    console.log("Ad blocker toggled");
+  });
+});
 
-    if (isNaN(timeInMinutes) || timeInMinutes <= 0) {
-        document.getElementById('status').innerText = 'Please enter a valid time.';
-        return;
+document
+  .getElementById("toggleScriptBlocker")
+  .addEventListener("click", function () {
+    chrome.runtime.sendMessage(
+      { action: "toggleScriptBlocker" },
+      function (response) {
+        console.log("Script blocker toggled");
+      }
+    );
+  });
+
+document.getElementById("clearCookies").addEventListener("click", function () {
+  chrome.browsingData.remove(
+    {
+      origins: ["<all_urls>"],
+    },
+    {
+      cookies: true,
+    },
+    function () {
+      console.log("Cookies cleared");
     }
-
-    chrome.storage.sync.set({ lockTime: timeInMinutes }, () => {
-        document.getElementById('status').innerText = `App will be locked after ${timeInMinutes} minutes.`;
-
-
-        chrome.runtime.sendMessage({ type: 'startTimer', duration: timeInMinutes }, (response) => {
-            console.log(response.status); 
-        });
-    });
+  );
 });
